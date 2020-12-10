@@ -1,11 +1,14 @@
 package com.example.demo.spring.util;
 
+import com.example.demo.simplet.Simple2;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -74,8 +77,13 @@ public class ClassSetUtil {
         return Thread.currentThread().getContextClassLoader();
     }
 
-    public static void main(String[] args) throws IOException {
-        Set<Class<?>> classByPackage = getClassByPackage("com.example.demo.entity");
-        System.out.println(classByPackage);
+    public static void main(String[] args) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+//        Set<Class<?>> classByPackage = getClassByPackage("com.example.demo.entity");
+//        System.out.println(classByPackage);
+        Constructor<Simple2> constructor = Simple2.class.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        Simple2 simple2 = constructor.newInstance();
+        System.out.println(simple2);
+
     }
 }
