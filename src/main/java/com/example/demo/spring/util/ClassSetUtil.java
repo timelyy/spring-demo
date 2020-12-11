@@ -1,5 +1,7 @@
 package com.example.demo.spring.util;
 
+import com.example.demo.simplet.SafeSimple3;
+import com.example.demo.simplet.Simple1;
 import com.example.demo.simplet.Simple2;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +10,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.HashSet;
@@ -77,13 +80,22 @@ public class ClassSetUtil {
         return Thread.currentThread().getContextClassLoader();
     }
 
-    public static void main(String[] args) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static void main(String[] args) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException {
 //        Set<Class<?>> classByPackage = getClassByPackage("com.example.demo.entity");
 //        System.out.println(classByPackage);
-        Constructor<Simple2> constructor = Simple2.class.getDeclaredConstructor();
-        constructor.setAccessible(true);
-        Simple2 simple2 = constructor.newInstance();
-        System.out.println(simple2);
+        Simple1 instance = Simple1.getInstance();
+        Field declaredField = Simple1.class.getDeclaredField("instence");
+        declaredField.setAccessible(true);
+        Constructor<Simple1> declaredConstructor = Simple1.class.getDeclaredConstructor();
+        declaredConstructor.setAccessible(true);
+        Simple1 simple1 = declaredConstructor.newInstance();
+        declaredField.set(instance,simple1);
 
+    }
+
+    public static <T> T getClassInstence(Class<T> clazz,Boolean isDeclear) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        Constructor<T> declaredConstructor = clazz.getDeclaredConstructor();
+        declaredConstructor.setAccessible(isDeclear);
+        return declaredConstructor.newInstance();
     }
 }
