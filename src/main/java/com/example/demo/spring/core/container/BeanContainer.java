@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +40,7 @@ public class BeanContainer {
         return BeanContainerEnum.INSTENCE.beanContainer;
     }
 
-    private void setIocContainerInit(String pakageName) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public synchronized Set<Class<?>> setIocContainerInit(String pakageName) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Set<Class<?>> classByPackage = ClassSetUtil.getClassByPackage(pakageName);
         if(classByPackage != null && classByPackage.size() > 0){
             for(Class<?> clazz : classByPackage){
@@ -56,10 +55,29 @@ public class BeanContainer {
         }else{
             log.warn("Annotation Class not founc");
         }
+        return classByPackage;
     }
 
     public boolean isload(){
         return isload;
     }
+
+
+    public Object add(Class<?> clazz,Object object) {
+        return iocContainer.put(clazz, object);
+    }
+
+    public Object remove(Class<?> clazz){
+        return iocContainer.remove(clazz);
+    }
+
+    public Object getByClass(Class<?> clazz){
+        return iocContainer.get(clazz);
+    }
+
+    public Set<Class<?>> getClasses(){
+
+    }
+
 
 }
