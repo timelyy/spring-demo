@@ -1,6 +1,8 @@
 package com.example.demo.controller.dispatchar;
 
 import com.example.demo.controller.UserController;
+import com.example.demo.service.solo.UserService;
+import com.example.demo.spring.core.annotation.Autowaire;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import java.io.IOException;
 public class DisPatCherController extends HttpServlet {
 
 
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String servletPath = req.getServletPath();
@@ -22,4 +25,5 @@ public class DisPatCherController extends HttpServlet {
             new UserController().doGet(req,resp);
         }
     }
+
 }

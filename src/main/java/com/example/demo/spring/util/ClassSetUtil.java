@@ -1,9 +1,6 @@
 package com.example.demo.spring.util;
 
-import com.example.demo.simplet.SafeSimple3;
 import com.example.demo.simplet.Simple1;
-import com.example.demo.simplet.Simple2;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;

@@ -1,7 +1,6 @@
-package com.example.demo.spring;
+package spring;
 
 import com.example.demo.spring.core.container.BeanContainer;
-import com.example.demo.spring.util.ClassSetUtil;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -24,10 +23,12 @@ public class ClassGetUtilTest {
     public void setIoc() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         boolean isload = beanContainer.isload();
         Assertions.assertEquals(false,isload);
-        Set<Class<?>> classes = beanContainer.setIocContainerInit("com.example");
+        Set<Class<?>> classes = beanContainer.setIocContainerInit("com.example.demo");
         boolean isloadnew = beanContainer.isload();
         Assertions.assertEquals(true,isloadnew);
-        Assertions.assertEquals(2,classes.size());
+        Assertions.assertEquals(34,classes.size());
+        Set<Object> objects = beanContainer.getObjects();
+        System.out.println(objects.size());
     }
 
 
